@@ -1,7 +1,8 @@
 #ifndef BOARD_HEADER 
 #define BOARD_HEADER
 
-class square; // forward class declaration.
+class square; // forward class declaration: works here because 
+// we are only dealing with square* and not the actual object.
 
 class board
 {
@@ -12,7 +13,7 @@ class board
 		square* get_starting_square() const;
 
 	private:
-		static const int N = 41;
+		static const int N = 40;
 
 	private: // methods
 		square* get_square(int index) const;

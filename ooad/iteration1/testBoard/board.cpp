@@ -4,6 +4,8 @@
 #include <cstdlib> // for abort.
 #include "square.h"
 
+#define DEBUG 1
+
 board::board()
 {
 	set_number_of_squares(0);
@@ -49,6 +51,13 @@ board::board()
 	add_square(new square("Luxury Tax"));
 	add_square(new square("Boardwalk"));
 
+	// add the link to the next square.
+	for(int i = 0; i < 39; i++)
+	{
+		get_square(i)->set_next(get_square(i+1));
+	}
+	get_square(39)->set_next(get_square(0));
+
 	// setup starting square to be the Go square.
 	my_starting_square = get_square(0);
 }
@@ -65,7 +74,7 @@ int board::get_number_of_squares() const
 
 void board::set_number_of_squares(int inValue)
 {
-	if ((inValue < 0) || (inValue >= N))
+	if ((inValue < 0) || (inValue > N))
 	{
 		std::cerr << "board:set_number_of_squares: input is wrong." << std::endl;
 		abort();
@@ -80,7 +89,7 @@ square* board::get_starting_square() const
 
 square* board::get_square(int index) const
 {
-	if ((index < 0) || (index >= get_number_of_squares()))
+	if ((index < 0) || (index > get_number_of_squares()))
 	{
 		std::cerr << "board:get_square: index is wrong." << std::endl;
 		abort();
@@ -90,9 +99,8 @@ square* board::get_square(int index) const
 
 void board::set_square(int index, square* inSquare)
 {
-	if ((index < 0) || (index >= get_number_of_squares()+1)) // is this a bug?
-	{
-		std::cout << get_number_of_squares() << std::endl;		
+	if ((index < 0) || (index > get_number_of_squares()))
+	{	
 		std::cerr << "board:set_square: index for setting is wrong." << std::endl;
 		abort();
 	}
@@ -102,6 +110,11 @@ void board::set_square(int index, square* inSquare)
 		abort();
 	}
 	my_squares[index] = inSquare;
+
+#if DEBUG
+	std::cout << "Set Square: " << inSquare->get_name() << std::endl;
+#endif
+
 }
 
 void board::add_square(square* inSquare)
@@ -111,11 +124,16 @@ void board::add_square(square* inSquare)
 		std::cerr << "board:add_square: square input is NULL." << std::endl;
 		abort();
 	}
-	if (get_number_of_squares() >= N)
+	if (get_number_of_squares() > N)
 	{	
 		std::cerr << "board:add_square: index for setting is wrong." << std::endl;
 		abort();
 	}
 	set_square(get_number_of_squares(), inSquare);
+
+#if DEBUG
+	std::cout << "Added Square: " << inSquare->get_name() << std::endl;
+#endif
+
 	set_number_of_squares(get_number_of_squares() + 1);
 }

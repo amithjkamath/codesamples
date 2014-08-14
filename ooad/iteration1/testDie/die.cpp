@@ -1,4 +1,5 @@
 #include "die.h"
+
 #include <iostream> // for the std::cout
 #include <cstdlib> //for rand and error.
 #include <ctime> // for the time to seed the random number.
@@ -11,7 +12,8 @@ die::die()
 
 
 die::~die()
-{	// nothing here for now.
+{
+	// nothing here for now.
 }
 
 int die::get_face_value()

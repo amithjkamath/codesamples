@@ -10,22 +10,12 @@
 game::game()
 {
 	set_board(new board);
-
 	set_number_of_players(0);
-
-	add_player(new player("Harry"));
-	add_player(new player("Sally"));
-
-	get_player(0)->set_location(get_board()->get_starting_square());
-	get_player(1)->set_location(get_board()->get_starting_square());
-
-	my_die1.roll();
-	my_die2.roll();
 }
 
 game::~game()
 {
-
+	// nothing as of now.
 }
 
 void game::add_player(player* inPlayer)
@@ -35,32 +25,17 @@ void game::add_player(player* inPlayer)
 		std::cerr << "game:add_player: player input is NULL." << std::endl;
 		abort();
 	}
-	if (get_number_of_players() >= N)
+	if (get_number_of_players() > N)
 	{	
 		std::cerr << "game:add_player: index for setting is wrong." << std::endl;
 		abort();
 	}
+
+	// The game has responsibility of placing the players at the start square.
+	inPlayer->set_location(get_board()->get_starting_square());
 	my_players->push_back (inPlayer);
 	set_number_of_players(get_number_of_players() + 1);
 }
-
-void game::set_player(int index, player* inPlayer)
-{
-	if ((index < 0) || (index >= get_number_of_players()+1)) // is this a bug?
-	{
-		std::cerr << "game:set_player: index for setting is wrong." << std::endl;
-		abort();
-	}
-	if (inPlayer == NULL)
-	{
-		std::cerr << "game:set_player: square input is NULL." << std::endl;
-		abort();
-	}
-	//std::vector<player*>::iterator it;
-	//it = my_players.begin();
-	//it = my_players.insert (it, index);
-}
-
 
 player* game::get_player(int index)
 {
@@ -74,7 +49,7 @@ int game::get_number_of_players() const
 
 void game::set_number_of_players(int inValue)
 {
-	if ((inValue < 0) || (inValue >= N))
+	if ((inValue < 0) || (inValue > N))
 	{
 		std::cerr << "board:set_number_of_players: input is wrong." << std::endl;
 		abort();
@@ -107,13 +82,10 @@ board* game::get_board()
 
 die game::get_die(int index)
 {
-	if(index == 1)
+	// simple logic and no containers because we have just two die.
+	if((index == 1) || (index == 2))
 	{
-		return my_die1;
-	}
-	if(index == 2)
-	{
-		return my_die2;
+		return my_dice[index];
 	}
 	else
 	{
@@ -121,10 +93,3 @@ die game::get_die(int index)
 		abort();
 	}
 }
-
-/*
-void game::add_die(die inDie)
-{
-	
-}
-*/

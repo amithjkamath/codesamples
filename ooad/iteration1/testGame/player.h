@@ -2,8 +2,8 @@
 #define PLAYER_HEADER
 
 #include "square.h" // because we are using square, not just square*
-#include "die.h" // as we are passing in die.
-#include <string> 
+#include "die.h"    // as we are passing in die.
+#include <string>   // for my_name.
 
 class player
 {

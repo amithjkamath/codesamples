@@ -1,4 +1,5 @@
 #include "die.h"
+
 #include <iostream> // for the std::cout
 #include <cstdlib> //for rand and error.
 #include <ctime> // for the time to seed the random number.

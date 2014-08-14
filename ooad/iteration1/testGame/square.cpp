@@ -1,5 +1,5 @@
 #include "square.h"
-		
+
 square::square()
 {
 	set_name("");
@@ -31,7 +31,6 @@ void square::set_name(std::string inName)
 {
 	my_name = inName;
 }
-
 
 std::string square::get_name() const
 {

@@ -6,17 +6,17 @@
 class square
 {
 	public:
-		square();
-		square(std::string name);
+		 square();
+		 square(std::string name);
 		~square();
 
-		void set_next(square* inSquare);
-		square* get_next() const;
-		void set_name(std::string inName);
+		void        set_next(square* inSquare);
+		square*     get_next() const;
+		void        set_name(std::string inName);
 		std::string get_name() const;
 
 	private:
 		std::string my_name;
-		square* my_next;
+		square*     my_next;
 };
 #endif
