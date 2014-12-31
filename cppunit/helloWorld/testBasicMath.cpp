@@ -11,8 +11,6 @@
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/CompilerOutputter.h>
-#include <cppunit/XmlOutputter.h>
-#include <netinet/in.h>
 
 #include "CBasicMath.hpp"
 
@@ -88,11 +86,6 @@ int main(int argc, char* argv[])
     // output results in compiler-format
     CPPUNIT_NS::CompilerOutputter compileroutputter(&collectedresults, std::cerr);
     compileroutputter.write ();
-
-    // Output XML for Jenkins CPPunit plugin
-    ofstream xmlFileOut("cppTestBasicMathResults.xml");
-    XmlOutputter xmlOut(&collectedresults, xmlFileOut);
-    xmlOut.write();
 
     // return 0 if tests were successful
     return collectedresults.wasSuccessful() ? 0 : 1;

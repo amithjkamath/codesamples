@@ -29,8 +29,8 @@ int matrix::getNumCols() const
 
 void matrix::setToZero()
 {
-	for(int i = 1; i <= getNumRows(); i++){
-		for(int j = 1; j <= getNumCols(); j++){
+	for(int i = 0; i < getNumRows(); i++){
+		for(int j = 0; j < getNumCols(); j++){
 			setVal(0.0,i,j);
 		}
 	}
@@ -38,8 +38,8 @@ void matrix::setToZero()
 	
 bool matrix::isZero()
 {
-	for(int i = 1; i <= getNumRows(); i++){
-		for(int j = 1; j <= getNumCols(); j++){
+	for(int i = 0; i < getNumRows(); i++){
+		for(int j = 0; j < getNumCols(); j++){
 			if(getVal(i,j) != 0)
 			{
 				return false;				
@@ -52,43 +52,41 @@ bool matrix::isZero()
 void matrix::setVal(double val, int x, int y)
 {
 	//input validation.
-	if(x < 1 || x > getNumRows())
+	if(x < 0 || x >= getNumRows())
 	{
 		std::cerr << "Error: " << x 
 		<< " is invalid. The number of rows is " 
 		<< getNumRows() << std::endl;
 		exit(1); 
 	}
-	if(y < 1 || y > getNumCols())
+	if(y < 0 || y >= getNumCols())
 	{
 		std::cerr << "Error: " << y 
 		<< " is invalid. The number of columns is " 
 		<< getNumCols() << std::endl;
 		exit(1); 
 	}
-	// -1 is to offset zero indices.
-	myElements[x-1][y-1] = val;
+	myElements[x][y] = val;
 }
 
 double matrix::getVal(int x, int y) const
 {
 	//input validation.
-	if(x < 1 || x > getNumRows())
+	if(x < 0 || x >= getNumRows())
 	{
 		std::cerr << "Error: " << x 
 		<< " is invalid. The number of rows is " 
 		<< getNumRows() << std::endl;
 		exit(1); 
 	}
-	if(y < 1 || y > getNumCols())
+	if(y < 0 || y >= getNumCols())
 	{
 		std::cerr << "Error: " << y 
 		<< " is invalid. The number of columns is " 
 		<< getNumCols() << std::endl;
 		exit(2); 
 	}
-	// -1 is to offset zero indices.
-	return myElements[x-1][y-1];
+	return myElements[x][y];
 }
 
 void matrix::numRows(int n)
@@ -125,8 +123,8 @@ void matrix::display() const
 		std::cout << "[" << std::endl;
 		std::cout << std::setw(3);
 		std::cout << std::setprecision(3);
-		for(int i = 1; i <= getNumRows(); i++){
-			for(int j = 1; j <= getNumCols(); j++){
+		for(int i = 0; i < getNumRows(); i++){
+			for(int j = 0; j < getNumCols(); j++){
 				std::cout << getVal(i,j) << " , ";
 			}
 			std::cout << std::endl;
@@ -135,7 +133,7 @@ void matrix::display() const
 	}
 }
 
-matrix matrix::operator+(matrix& other)
+matrix matrix::operator+(const matrix& other)
 {
 	if((getNumRows() != other.getNumRows()) || (getNumCols() != other.getNumCols()))
 	{
@@ -143,17 +141,15 @@ matrix matrix::operator+(matrix& other)
 		exit(5);	
 	}
 	matrix res(getNumRows(),getNumCols());
-	for(int i = 1; i <= getNumRows(); i++){
-		for(int j = 1; j <= getNumCols(); j++){
-			double myX = getVal(i,j);
-			double otherX = other.getVal(i,j);
-			res.setVal(myX + otherX,i,j);
+	for(int i = 0; i < res.getNumRows(); i++){
+		for(int j = 0; j < res.getNumCols(); j++){
+			res.setVal(this->getVal(i,j) + other.getVal(i,j),i,j);
 		}
-	}	
+	}
 	return res;
 }
 
-matrix matrix::operator-(matrix& other)
+matrix matrix::operator-(const matrix& other)
 {
 	if((getNumRows() != other.getNumRows()) || (getNumCols() != other.getNumCols()))
 	{
@@ -161,8 +157,8 @@ matrix matrix::operator-(matrix& other)
 		exit(6);	
 	}
 	matrix res(getNumRows(),getNumCols());
-	for(int i = 1; i <= getNumRows(); i++){
-		for(int j = 1; j <= getNumCols(); j++){
+	for(int i = 0; i < res.getNumRows(); i++){
+		for(int j = 0; j < res.getNumCols(); j++){
 			double myX = getVal(i,j);
 			double otherX = other.getVal(i,j);
 			res.setVal(myX - otherX,i,j);
@@ -171,7 +167,7 @@ matrix matrix::operator-(matrix& other)
 	return res;
 }
 
-matrix matrix::operator*(matrix& other)
+matrix matrix::operator*(const matrix& other)
 {
 	if((getNumRows() != other.getNumRows()) || (getNumCols() != other.getNumCols()))
 	{
@@ -179,8 +175,8 @@ matrix matrix::operator*(matrix& other)
 		exit(7);	
 	}
 	matrix res(getNumRows(),getNumCols());
-	for(int i = 1; i <= getNumRows(); i++){
-		for(int j = 1; j <= getNumCols(); j++){
+	for(int i = 0; i < res.getNumRows(); i++){
+		for(int j = 0; j < res.getNumCols(); j++){
 			double myX = getVal(i,j);
 			double otherX = other.getVal(i,j);
 			res.setVal(myX*otherX,i,j);
@@ -192,8 +188,8 @@ matrix matrix::operator*(matrix& other)
 matrix matrix::operator*(double val)
 {
 	matrix res(getNumRows(),getNumCols());
-	for(int i = 1; i <= getNumRows(); i++){
-		for(int j = 1; j <= getNumCols(); j++){
+	for(int i = 0; i < res.getNumRows(); i++){
+		for(int j = 0; j < res.getNumCols(); j++){
 			double myX = getVal(i,j);			
 			res.setVal(myX*val,i,j);
 		}
@@ -204,8 +200,8 @@ matrix matrix::operator*(double val)
 matrix operator*(double num, matrix& mat)
 {
 	matrix res(mat.getNumRows(),mat.getNumCols());
-	for(int i = 1; i <= mat.getNumRows(); i++){
-		for(int j = 1; j <= mat.getNumCols(); j++){
+	for(int i = 0; i < res.getNumRows(); i++){
+		for(int j = 0; j < res.getNumCols(); j++){
 			double myX = mat.getVal(i,j);			
 			res.setVal(myX*num,i,j);
 		}
@@ -231,5 +227,5 @@ matrix operator*(matrix& mat, double num)
 matrix::~matrix()
 {
 	std::cout << "Destructing matrix." << std::endl;
-	delete[] myElements;
+	//delete[] myElements;
 }

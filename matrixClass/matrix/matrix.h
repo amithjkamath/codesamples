@@ -16,9 +16,9 @@ public:
 
 	void display() const;
 
-	matrix operator+(matrix& other);
-	matrix operator-(matrix& other);
-	matrix operator*(matrix& other);
+	matrix operator+(const matrix& other);
+	matrix operator-(const matrix& other);
+	matrix operator*(const matrix& other);
 	matrix operator*(double val);
 	friend matrix operator*(double num, matrix& mat);
 	//this is an ambiguous overload, even though it is a friend function.
