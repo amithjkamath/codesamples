@@ -15,7 +15,7 @@
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/CompilerOutputter.h>
 
-#include "sdcalc.hpp"
+#include "transmatrix.hpp"
 
 using namespace CppUnit;
 using namespace std;
@@ -23,46 +23,55 @@ using namespace std;
 
 //-----------------------------------------------------------------------------
 
-class testsdcalc : public CppUnit::TestFixture
+class testtransmatrix : public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE(testsdcalc);
-    CPPUNIT_TEST(testArray1);
-    CPPUNIT_TEST(testArray2);
+    CPPUNIT_TEST_SUITE(testtransmatrix);
+    CPPUNIT_TEST(testMatrix1);
+    //CPPUNIT_TEST(testMatrix2);
     CPPUNIT_TEST_SUITE_END();
 
 protected:
-    void testArray1(void);
-    void testArray2(void);
+    void testMatrix1(void);
+  //  void testMatrix2(void);
 
 };
 
 //-----------------------------------------------------------------------------
 
-void testsdcalc::testArray1(void)
+void testtransmatrix::testMatrix1(void)
 {
-	double arrayIn[5] = {1, 1, 1, 1, 1};
-	int numElems = 5;
-	double expected = 0; // (1+2+3+4+5)/5 = 3
-	
-	double actual = sdcalc(arrayIn, numElems);
-	
-	CPPUNIT_ASSERT(actual == expected);
-}
+	double matrixIn[3][3] = {{1, 2, 3},
+				 {4, 5, 6},
+				 {7, 8, 9}};
+	double actual[3][3];
 
-void testsdcalc::testArray2(void)
+	int numRows = 3;
+	int numCols = 3;
+	double expected[3][3] = {{1, 4, 7},
+			 	 {2, 5, 8},
+				 {3, 6, 9}};
+	
+	transmatrix(matrixIn[3][3], 3, 3, actual[3][3]);
+	
+	for(int i = 0; i < 3; i++)
+		for(int j = 0; j < 3; j++)
+			CPPUNIT_ASSERT(actual[i][j] == expected[i][j]);
+}
+/*
+void testtransmatrix::testMatrix2(void)
 {
 	double arrayIn[6] = {1, 2, 1, 2, 1, 2};
 	int numElems = 6;
-	double expected = 1.5477;
+	double expected = 0.5477;
 	
 	double actual = sdcalc(arrayIn, numElems);
 	
 	CPPUNIT_ASSERT(abs(actual - expected) < 0.001);
 }
-
+*/
 //-----------------------------------------------------------------------------
 
-CPPUNIT_TEST_SUITE_REGISTRATION( testsdcalc );
+CPPUNIT_TEST_SUITE_REGISTRATION( testtransmatrix );
 
 int main(int argc, char* argv[])
 {
