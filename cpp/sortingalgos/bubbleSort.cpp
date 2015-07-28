@@ -5,19 +5,25 @@
 
 // Test for different array lengths, so that you have a
 // good idea about what n^2 complexity means.
-#define ARRLEN 25000
+#define ARRLEN 10
 
 std::vector<int> bubbleSort(std::vector<int> inArray)
 {
   int temp;
+  bool hasSwapped = false;
   for(int i = 0; i < inArray.size()-1; i++){
-    for(int j = 0; j < inArray.size()-1; j++){
+    hasSwapped = false;
+    for(int j = 0; j < inArray.size()-i-1; j++){
       if(inArray[j] > inArray[j + 1]){
+        // Swap.
         temp = inArray[j];
         inArray[j] = inArray[j+1];
         inArray[j+1] = temp;
+        hasSwapped = true;
       }
     }
+    if(hasSwapped == false)
+      break; // list already sorted.
   }
   return inArray;
 }
