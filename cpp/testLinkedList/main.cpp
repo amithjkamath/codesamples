@@ -3,7 +3,7 @@
 
 int main()
 {
-	node* root = initLList(5);
+	node* root = initLList();
 	
 	appendToLList(root, 5);
 	appendToLList(root, 6);
@@ -17,8 +17,18 @@ int main()
 	
 	appendToLList(root, 9);
 	appendToLList(root, 30);
+	
+	printLList(root);
+	
+	insertAt(root, 4, 44);
+	insertAt(root, 5, 55);
 
-	std::cout << "Value at index 4 is " << listValueAt(root, 4) << std::endl;
+	printLList(root);
+
+	std::cout << "4, " << listValueAt(root, 4) << std::endl;
+	std::cout << "1, " << listValueAt(root, 1) << std::endl;
+	std::cout << "0, " << listValueAt(root, 0) << std::endl;
+	std::cout << "7, " << listValueAt(root, 7) << std::endl;
 
 	releaseLList(root);
 
