@@ -14,5 +14,15 @@ node* initLList(){
 };
 
 node* appendToLList(node* root, int value){
-	return NULL;
+	
+};
+
+void releaseLList(node* root){
+	node* thisNode = root;
+	node* nextNode = NULL;
+	while(thisNode->next != NULL){
+		nextNode = thisNode->next;
+		delete thisNode;
+		thisNode = nextNode;
+	}
 };
