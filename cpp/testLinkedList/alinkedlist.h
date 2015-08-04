@@ -6,9 +6,9 @@ struct node {
 
 typedef struct node node;
 
-node* initLList(){
+node* initLList(int val){
 	node* root = new node;
-	root->data = 0;
+	root->data = val;
 	root->next = NULL;
 	return root;	
 };
@@ -21,6 +21,19 @@ node* appendToLList(node* root, int value){
 	addNode->next = NULL;
 	root->next = addNode;
 	return root;	
+};
+
+int listValueAt(node* root, int index){
+	int idx = index;
+	while(idx > 0){
+		if(root->next != NULL){
+			root = root->next;
+			idx--;
+		}
+		else
+			std::cerr << "Invalid index: listValueAt" << std::endl;
+	}
+	return root->data;
 };
 
 void releaseLList(node* root){
@@ -40,4 +53,5 @@ void printLList(node* root){
 		idx++;
 		root = root->next;
 	}
+	std::cout << "Value at index: " << idx << " is " << root->data << std::endl;
 };
