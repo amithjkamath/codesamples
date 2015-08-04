@@ -4,17 +4,16 @@
 int main()
 {
 	node* root = initLList();
-	node* nextVal = new node;
-	nextVal->data = 5;
-	root->next = nextVal;
-	nextVal->next = NULL;
-	std::cout << "root data: " << root->data << std::endl;
-	std::cout << "root next: " << root->next << std::endl;
+	
+	appendToLList(root, 5);
+	appendToLList(root, 6);
 
-	std::cout << "next addr: " << nextVal << std::endl;
+	printLList(root);
 
-	std::cout << "next data: " << nextVal->data << std::endl;
-	std::cout << "next next: " << nextVal->next << std::endl;
+	appendToLList(root, 7);
+	appendToLList(root, 18);
+
+	printLList(root);
 
 	releaseLList(root);
 	return 0;
