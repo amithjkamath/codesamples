@@ -36,7 +36,15 @@ void myssefunction(
           float* pResult,                   // [out] result array
           int nSize)                        // [in] size of all arrays
 {
-    int nLoop = nSize/ 4;
+    int nLoop = 0;
+    if(nSize%4 == 0)
+    {
+        nLoop = nSize/ 4;
+    }
+    else
+    {
+        nLoop = nSize/4 + 1;
+    }
 
     __m128 m1, m2, m3, m4;
 
@@ -44,16 +52,13 @@ void myssefunction(
     __m128* pSrc2 = (__m128*) pArray2;
     __m128* pDest = (__m128*) pResult;
 
-
-    //__m128 m0_5 = _mm_set_ps1(0.5f);        // m0_5[0, 1, 2, 3] = 0.5
-
     for ( int i = 0; i < nLoop; i++ )
     {
         m1 = _mm_mul_ps(*pSrc1, *pSrc1);        // m1 = *pSrc1 * *pSrc1
         m2 = _mm_mul_ps(*pSrc2, *pSrc2);        // m2 = *pSrc2 * *pSrc2
         m3 = _mm_add_ps(m1, m2);                // m3 = m1 + m2
         m4 = _mm_sqrt_ps(m3);                   // m4 = sqrt(m3)
-        *pDest = m4; //_mm_add_ps(m4, m0_5);          // *pDest = m4 + 0.5
+        *pDest = m4;
 
         pSrc1++;
         pSrc2++;
@@ -64,6 +69,13 @@ void myssefunction(
 int main(int argc, char *argv[])
 {
   int arraySize = atoi(argv[1]);
+  
+  if((arraySize < 0) || (arraySize > 9999))
+  {
+      std::cout << "Error: invalid array size, try again" << std::endl;
+      return 0;
+  }
+
   float* m_fArray1 = (float*) malloc_simd(arraySize * sizeof(float));
   float* m_fArray2 = (float*) malloc_simd(arraySize * sizeof(float));
   float* m_fArray3 = (float*) malloc_simd(arraySize * sizeof(float));
