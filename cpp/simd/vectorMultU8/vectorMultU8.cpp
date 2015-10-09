@@ -2,10 +2,13 @@
 #include <iomanip>
 #include <ctime>
 #include <cstdlib>
-#include <xmmintrin.h> // Contain the SSE compiler intrinsics
+#include <smmintrin.h> // Contain the SSE compiler intrinsics
+
 #if defined __linux__
 #include <malloc.h>
 #endif
+
+typedef int T;
 
 void* malloc_simd(const size_t size)
 {
@@ -34,34 +37,34 @@ void free_simd(void* dataPtr)
 }
 
 void myssefunction(
-          float* pArray1,                   // [in] first source array
-          float* pArray2,                   // [in] second source array
-          float* pResult,                   // [out] result array
-          int nSize)                        // [in] size of all arrays
+          T* pArray1,      // [in] first source array
+          T* pArray2,      // [in] second source array
+          T* pResult,      // [out] result array
+          int nSize,       // [in] size of all arrays
+          int width)       // [in] width of datatype.
 {
     int nLoop = 0;
-    if(nSize%4 == 0)
+    if(nSize%width == 0)
     {
-        nLoop = nSize/ 4;
+        nLoop = nSize/width;
     }
     else
     {
-        nLoop = nSize/4 + 1;
+        nLoop = nSize/width + 1;
     }
 
-    __m128 m1, m2, m3, m4;
+    __m128i m1, m2, m3;
 
-    __m128* pSrc1 = (__m128*) pArray1;
-    __m128* pSrc2 = (__m128*) pArray2;
-    __m128* pDest = (__m128*) pResult;
+    __m128i* pSrc1 = (__m128i*) pArray1;
+    __m128i* pSrc2 = (__m128i*) pArray2;
+    __m128i* pDest = (__m128i*) pResult;
 
     for ( int i = 0; i < nLoop; i++ )
     {
-        m1 = _mm_mul_ps(*pSrc1, *pSrc1);        // m1 = *pSrc1 * *pSrc1
-        m2 = _mm_mul_ps(*pSrc2, *pSrc2);        // m2 = *pSrc2 * *pSrc2
-        m3 = _mm_add_ps(m1, m2);                // m3 = m1 + m2
-        m4 = _mm_sqrt_ps(m3);                   // m4 = sqrt(m3)
-        *pDest = m4;
+        m1 = _mm_mullo_epi32(*pSrc1, *pSrc1);        // m1 = *pSrc1 * *pSrc1
+        m2 = _mm_mullo_epi32(*pSrc2, *pSrc2);        // m2 = *pSrc2 * *pSrc2
+        //m3 = _mm_add_epi32(m1, m2);              // m3 = m1 + m2
+        *pDest = m1;
 
         pSrc1++;
         pSrc2++;
@@ -79,19 +82,20 @@ int main(int argc, char *argv[])
       return 0;
   }
 
-  float* m_fArray1 = (float*) malloc_simd(arraySize * sizeof(float));
-  float* m_fArray2 = (float*) malloc_simd(arraySize * sizeof(float));
-  float* m_fArray3 = (float*) malloc_simd(arraySize * sizeof(float));
+  std::cout << sizeof(float) << std::endl;
+  T* m_fArray1 = (T*) malloc_simd(arraySize * sizeof(T));
+  T* m_fArray2 = (T*) malloc_simd(arraySize * sizeof(T));
+  T* m_fArray3 = (T*) malloc_simd(arraySize * sizeof(T));
 
   for (int i = 0; i < arraySize; ++i)
     {
-      m_fArray1[i] = ((float)i);
+      m_fArray1[i] = ((T)i);
       std::cout << "array1:[" << i << "]" << " = " << m_fArray1[i] << std::endl;
-      m_fArray2[i] = ((float)(i));
+      m_fArray2[i] = ((T)(i));
       std::cout << "array2:[" << i << "]" << " = " << m_fArray2[i] << std::endl;
     }
 
-  myssefunction(m_fArray1 , m_fArray2 , m_fArray3, arraySize);
+  myssefunction(m_fArray1 , m_fArray2 , m_fArray3, arraySize, 4);
 
   for (int j = 0; j < arraySize; ++j)
     {
