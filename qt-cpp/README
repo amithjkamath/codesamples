@@ -1,0 +1,19 @@
+For basic examples, you only need libqt4-dev
+sudo apt-get install libqt4-dev
+
+More information here: http://www.zetcode.com/gui/qt4/introduction/
+
+To build project, use:
+
+qmake -project
+qmake
+make
+
+no need of a custom makefile.
+
+QT5 errors when QApplication is not recognized:
+to avoid this, add the following line to the .pro file:
+QT += widgets
+
+To find QT version installed, run the following:
+qmake --version
