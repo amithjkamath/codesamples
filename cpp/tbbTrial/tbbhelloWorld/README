@@ -1,3 +1,0 @@
-to build this code, use:
-
-g++ main.cpp numberprinter.cpp -ltbb -o tbbhelloWorld

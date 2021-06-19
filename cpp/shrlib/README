@@ -1,1 +1,0 @@
-Need to include the directory where the shared library is, into LD_LIBRARY_PATH environment variable, so that the OS knows where to pick up the library from.

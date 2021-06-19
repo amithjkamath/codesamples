@@ -1,0 +1,5 @@
+This is a test file to read and write. 
+This contains some text and I am going to read it using fread and write using fwrite. 
+I also need to make sure that I use fopen and fclose to keep the file access permissions clean.
+I may add more text to the bottom. OK?
+=========

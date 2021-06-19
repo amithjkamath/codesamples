@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/images">
+        <file>MathWorksLogo.jpg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,5 @@
+To build, need to have libcppunit-dev installed on your ubuntu machine. Then, need to build the project as:
+
+g++ -o testBasicMath CBasicMath.cpp testBasicMath.cpp -lcppunit
+
+and run ./testBasicMath to run the tests and ensure that things work correctly.

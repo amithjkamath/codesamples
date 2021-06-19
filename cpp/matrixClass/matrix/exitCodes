@@ -1,8 +1,0 @@
-exitCode listings
-	1: matrix::setVal: row entered is invalid.
-	2: matrix::setVal: column entered is invalid.
-	3: matrix::numRows: invalid number of rows.
-	4: matrix::numCols: invalid number of columns.
-	5: matrix::operator+: matrix dimensions are not the same for addition.
-	6: matrix::operator+: matrix dimensions are not the same for subtraction.
-	7: matrix::operator+: matrix dimensions are not the same for multiplication.

@@ -1,2 +1,0 @@
-Implement in C++ a Fraction class that supports the following operations:
-addition, subtraction, multiplication, division, equality/non-equality, greater than/ lesser than, and display. 

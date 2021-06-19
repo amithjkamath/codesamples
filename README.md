@@ -1,29 +1,16 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This is an arbit collection of code and artifacts of small projects that I indulge in every once in a while. There's really no rhyme or reason for what it contains - its just meant to be a miscellaneous collection of code that I occasionally look at.
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Documenting some cpp/py/MATLAB code
+* Keeping track of a handful of hobby projects
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+Look into subfolders based on language, and play away (cpp code typically has makefiles)
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* @amithjkamath
