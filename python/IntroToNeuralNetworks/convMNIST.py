@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 
-class Net(nn.Module):
+class convNet(nn.Module):
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 6, 5)
@@ -76,7 +76,7 @@ if __name__ == '__main__':
         show_images(train_loader, batch_size)
     """
 
-    net = Net()
+    net = convNet()
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
