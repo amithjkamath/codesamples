@@ -10,16 +10,27 @@ class TestFractionMethods(unittest.TestCase):
         self.assertEqual(f.numerator, 1)
         self.assertEqual(f.denominator, 2)
 
+
     def test_print(self):
         f = fraction.fraction(1, 2)
         self.assertEqual(str(f), "1/2")
 
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+
+    def test_add(self):
+        f1 = fraction.fraction(1, 2)
+        f2 = fraction.fraction(1, 2)
+        f3 = f1 + f2
+        self.assertEqual(f3.numerator, 1)
+        self.assertEqual(f3.denominator, 1)
+        self.assertEqual(str(f3), "1/1")
+
+
+    def test_gcd(self):
+        """
+        Note that a static method can be called as a function. There are no 'hidden' methods.
+        """
+        self.assertEqual(fraction.fraction._gcd(1, 4), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
