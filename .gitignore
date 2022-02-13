@@ -57,6 +57,10 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
+
+# Miscellaneous #
+#################
+*.pyc
 python/IntroToNeuralNetworks/.vscode/settings.json
 python/IntroToNeuralNetworks/data/*
 .vscode/settings.json
