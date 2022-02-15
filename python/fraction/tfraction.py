@@ -25,11 +25,41 @@ class TestFractionMethods(unittest.TestCase):
         self.assertEqual(str(f3), "1/1")
 
 
+    def test_subtract(self):
+        f1 = fraction.fraction(1, 2)
+        f2 = fraction.fraction(1, 2)
+        f3 = f1 - f2
+        self.assertEqual(f3.numerator, 0)
+        self.assertEqual(f3.denominator, 1)
+        self.assertEqual(str(f3), "0/1")
+
+
+    def test_equality(self):
+        f1 = fraction.fraction(4, 29)
+        f2 = fraction.fraction(4*5, 29*5)
+        self.assertTrue(f1 == f2)
+        f3 = fraction.fraction(-4*5, -29*5)
+        self.assertTrue(f1 == f3)
+
+
+    def test_multiply(self):
+        f1 = fraction.fraction(4, 29)
+        f2 = fraction.fraction(1, 2)
+        f3 = f1 * f2
+        self.assertEqual(f3.numerator, 2)
+        self.assertEqual(f3.denominator, 29)
+        i3 = 5
+        f4 = f3 * i3
+        self.assertEqual(f4.numerator, 10)
+        self.assertEqual(f4.denominator, 29)
+
+
     def test_gcd(self):
         """
         Note that a static method can be called as a function. There are no 'hidden' methods.
         """
         self.assertEqual(fraction.fraction._gcd(1, 4), 1)
+        self.assertEqual(fraction.fraction._gcd(29, 87), 29)
 
 
 if __name__ == '__main__':

@@ -18,6 +18,31 @@ class fraction:
         return fraction(new_num // common, new_den // common)
     
 
+    def __sub__(self, another):
+        # Re-use the add implementation to also do subtract.
+        return self.__add__(fraction(-another.numerator, another.denominator))
+
+
+    def __eq__(self, other_fraction) -> bool:
+        # This is necessary because there's no unique representation of the same fraction.
+        first_num = self.numerator * other_fraction.denominator
+        second_num = other_fraction.numerator * self.denominator
+
+        return first_num == second_num
+
+
+    def __mul__(self, another):
+        if isinstance(another, int) or isinstance(another, float):
+            new_num = self.numerator * another
+            new_den = self.denominator
+        elif isinstance(another, fraction):
+            new_num = self.numerator * another.numerator
+            new_den = self.denominator * another.denominator
+        
+        common = self._gcd(new_num, new_den)
+        return fraction(new_num//common, new_den//common)
+
+
     @staticmethod
     def _gcd(m, n):
         while m % n != 0:
