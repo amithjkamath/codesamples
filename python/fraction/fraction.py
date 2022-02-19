@@ -1,8 +1,11 @@
-# This file contains an implementation of the 'fraction' class, as elaborated in 
-# https://runestone.academy/ns/books/published/pythonds3/Introduction/ObjectOrientedProgramminginPythonDefiningClasses.html 
-
-class fraction:
-
+"""
+This is the module doc string for fraction. This contains only one class, Fraction, for now.
+"""
+class Fraction:
+    """
+    This is an implementation of the fraction class, inspired by
+    https://runestone.academy/ns/books/published/pythonds3/Introduction/ObjectOrientedProgramminginPythonDefiningClasses.html
+    """
     def __init__(self, num, den):
         self.numerator = int(num)
         self.denominator = int(den)
@@ -12,15 +15,15 @@ class fraction:
         new_num = self.numerator * another.denominator + \
                  self.denominator * another.numerator
         new_den = self.denominator * another.denominator
-        
+
         common = self._gcd(new_num, new_den)
-        
-        return fraction(new_num // common, new_den // common)
-    
+
+        return Fraction(new_num // common, new_den // common)
+
 
     def __sub__(self, another):
         # Re-use the add implementation to also do subtract.
-        return self.__add__(fraction(-another.numerator, another.denominator))
+        return self.__add__(Fraction(-another.numerator, another.denominator))
 
 
     def __eq__(self, other_fraction) -> bool:
@@ -35,19 +38,19 @@ class fraction:
         if isinstance(another, int) or isinstance(another, float):
             new_num = self.numerator * another
             new_den = self.denominator
-        elif isinstance(another, fraction):
+        elif isinstance(another, Fraction):
             new_num = self.numerator * another.numerator
             new_den = self.denominator * another.denominator
-        
+
         common = self._gcd(new_num, new_den)
-        return fraction(new_num//common, new_den//common)
+        return Fraction(new_num//common, new_den//common)
 
 
     @staticmethod
-    def _gcd(m, n):
-        while m % n != 0:
-            m, n = n, m % n
-        return n
+    def _gcd(integer_m, integer_n):
+        while integer_m % integer_n != 0:
+            integer_m, integer_n = integer_n, integer_m % integer_n
+        return integer_n
 
 
     def __str__(self):
